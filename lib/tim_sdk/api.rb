@@ -92,6 +92,35 @@ module TimSdk
       JSON.parse(response.body, symbolize_names: true) if response.success?
     end
 
+    # 设置资料
+    def self.invoke_portrait_set(account, items)
+      response = connection.post('/v4/profile/portrait_set') do |request|
+        request.body = {
+            :From_Account => account.to_s,
+            :ProfileItem  => items.map do |item|
+              {
+                  :Tag   => item[:tag],
+                  :Value => item[:value],
+              }
+            end
+        }.to_json
+      end
+      raise TimServerError, "Response Status: #{response.status}" unless response.success?
+      JSON.parse(response.body, symbolize_names: true) if response.success?
+    end
+
+    # 拉取资料
+    def self.invoke_portrait_get(accounts, tags)
+      response = connection.post('/v4/profile/portrait_get') do |request|
+        request.body = {
+            :To_Account => accounts.map(&:to_s),
+            :TagList    => tags.map(&:to_s),
+        }.to_json
+      end
+      raise TimServerError, "Response Status: #{response.status}" unless response.success?
+      JSON.parse(response.body, symbolize_names: true) if response.success?
+    end
+
     # 拉取运营数据
     def self.invoke_fetch_app_info(fields = [])
       response = connection.post('/v4/openconfigsvr/getappinfo') do |request|
@@ -102,7 +131,6 @@ module TimSdk
       raise TimServerError, "Response Status: #{response.status}" unless response.success?
       JSON.parse(response.body, symbolize_names: true) if response.success?
     end
-
 
     # 下载消息记录
     def self.invoke_fetch_history(chat_type, msg_time)
@@ -115,7 +143,6 @@ module TimSdk
       raise TimServerError, "Response Status: #{response.status}" unless response.success?
       JSON.parse(response.body, symbolize_names: true) if response.success?
     end
-
 
     # 获取服务器 IP 地址
     def self.invoke_fetch_ip_list
