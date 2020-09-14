@@ -25,6 +25,59 @@ RSpec.describe TimSdk do
     expect(signature.size).to be > 0
   end
 
+  it 'should be imported successfully' do
+    response = TimSdk::Api.invoke_account_import('foo')
+    expect(response[:ActionStatus]).to eq('OK')
+    expect(response[:ErrorCode]).to eq(0)
+  end
+
+  it 'should be imported multi account successfully' do
+    response = TimSdk::Api.invoke_multi_account_import(%w[foo bar])
+    expect(response[:ActionStatus]).to eq('OK')
+    expect(response[:ErrorCode]).to eq(0)
+  end
+
+  it 'should be kick account successfully' do
+    response = TimSdk::Api.invoke_kick('foo')
+    expect(response[:ActionStatus]).to eq('OK')
+    expect(response[:ErrorCode]).to eq(0)
+  end
+
+  it 'should be check account successfully' do
+    response = TimSdk::Api.invoke_account_check(%w[foo bar])
+    expect(response[:ActionStatus]).to eq('OK')
+    expect(response[:ErrorCode]).to eq(0)
+  end
+
+  it 'should be query account state successfully' do
+    response = TimSdk::Api.invoke_query_state(%w[foo bar])
+    expect(response[:ActionStatus]).to eq('OK')
+    expect(response[:ErrorCode]).to eq(0)
+    response = TimSdk::Api.invoke_query_state(%w[foo bar], 1)
+    expect(response[:ActionStatus]).to eq('OK')
+    expect(response[:ErrorCode]).to eq(0)
+  end
+
+  it 'should be delete account successfully' do
+    response = TimSdk::Api.invoke_account_delete(%w[foo bar])
+    expect(response[:ActionStatus]).to eq('OK')
+    expect(response[:ErrorCode]).to eq(0)
+  end
+
+  it 'should return app info' do
+    response = TimSdk::Api.invoke_fetch_app_info
+    expect(response[:ErrorInfo]).to eq('OK')
+    expect(response[:ErrorCode]).to eq(0)
+    expect(response).to have_key(:Result)
+  end
+
+  it 'should return message histories' do
+    response = TimSdk::Api.invoke_fetch_history('C2C', '2020091116')
+    expect(response).to have_key(:ActionStatus)
+    expect(response).to have_key(:ErrorInfo)
+    expect(response).to have_key(:ErrorCode)
+  end
+
   it 'should return a list of IP addresses' do
     response = TimSdk::Api.invoke_fetch_ip_list
     expect(response[:ActionStatus]).to eq('OK')
