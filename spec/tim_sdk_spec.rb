@@ -59,25 +59,16 @@ RSpec.describe TimSdk do
   end
 
   it 'should be set account portrait successfully' do
-    items    = [
-        {
-            tag:   'Tag_Profile_IM_Nick',
-            value: 'vincent',
-        },
-        {
-            tag:   'Tag_Profile_IM_Image',
-            value: 'https://example.com/avatar.png'
-        }
-    ]
-    response = TimSdk::Api.invoke_portrait_set('foo', items)
-    puts response
+    response = TimSdk::Api.invoke_portrait_set('foo', [
+        { tag: 'Tag_Profile_IM_Nick', value: 'vincent', },
+        { tag: 'Tag_Profile_IM_Image', value: 'https://example.com/avatar.png' },
+    ])
     expect(response[:ActionStatus]).to eq('OK')
     expect(response[:ErrorCode]).to eq(0)
   end
 
   it 'should be get account portrait successfully' do
     response = TimSdk::Api.invoke_portrait_get(%w[foo bar], %w[Tag_Profile_IM_Nick Tag_Profile_IM_Image])
-    puts response
     expect(response[:ActionStatus]).to eq('OK')
     expect(response[:ErrorCode]).to eq(0)
   end
