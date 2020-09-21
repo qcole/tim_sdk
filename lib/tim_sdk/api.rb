@@ -4,7 +4,7 @@ module TimSdk
   class Api
 
     def self.connection
-      @connection ||= Faraday.new('https://console.tim.qq.com', params: {
+      Faraday.new('https://console.tim.qq.com', params: {
           sdkappid:    TimSdk.configuration.app_id,
           identifier:  TimSdk.configuration.admin_account,
           usersig:     TimSdk::Sign.signature(TimSdk.configuration.admin_account),
