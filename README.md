@@ -15,6 +15,7 @@
 
 - [x] 单聊消息
     - [x] 导入单聊消息
+    - [x] 撤回单聊消息
 
 - [x] 资料管理
     - [x] 设置资料
@@ -113,6 +114,12 @@ TimSdk::Api.invoke_import_msg(
         }
     ]
 )
+#=> {:ActionStatus=>"OK", :ErrorInfo=>"", :ErrorCode=>0}
+```
+
+撤回单聊消息
+```ruby
+TimSdk::Api.invoke_admin_msg_withdraw('foo', 'bar', '1927400049_48863998_1599827627')
 #=> {:ActionStatus=>"OK", :ErrorInfo=>"", :ErrorCode=>0}
 ```
 

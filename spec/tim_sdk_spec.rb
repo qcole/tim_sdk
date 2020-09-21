@@ -78,6 +78,12 @@ RSpec.describe TimSdk do
     expect(response[:ErrorCode]).to eq(0)
   end
 
+  it 'should be withdraw message successfully' do
+    response = TimSdk::Api.invoke_admin_msg_withdraw('foo', 'bar', '1927400049_48863998_1599827627')
+    expect(response[:ActionStatus]).to eq('OK')
+    expect(response[:ErrorCode]).to eq(0)
+  end
+
   it 'should be set account portrait successfully' do
     response = TimSdk::Api.invoke_portrait_set('foo', [
         { tag: 'Tag_Profile_IM_Nick', value: 'vincent', },

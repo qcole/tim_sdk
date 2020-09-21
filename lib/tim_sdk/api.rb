@@ -108,6 +108,19 @@ module TimSdk
       JSON.parse(response.body, symbolize_names: true) if response.success?
     end
 
+    # 撤回单聊消息
+    def self.invoke_admin_msg_withdraw(from_account, to_account, msg_key)
+      response = connection.post('/v4/openim/admin_msgwithdraw') do |request|
+        request.body = {
+            :From_Account => from_account.to_s,
+            :To_Account   => to_account.to_s,
+            :MsgKey       => msg_key.to_s,
+        }.to_json
+      end
+      raise TimServerError, "Response Status: #{response.status}" unless response.success?
+      JSON.parse(response.body, symbolize_names: true) if response.success?
+    end
+
     # 设置资料
     def self.invoke_portrait_set(account, items)
       response = connection.post('/v4/profile/portrait_set') do |request|
