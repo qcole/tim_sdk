@@ -58,6 +58,26 @@ RSpec.describe TimSdk do
     expect(response[:ErrorCode]).to eq(0)
   end
 
+  it 'should be import message successfully' do
+    response = TimSdk::Api.invoke_import_msg(
+        'foo',
+        'bar',
+        4122534,
+        1556178721,
+        2,
+        [
+            {
+                "msg_type":    "TIMTextElem",
+                "msg_content": {
+                    "text": "Hello World"
+                }
+            }
+        ]
+    )
+    expect(response[:ActionStatus]).to eq('OK')
+    expect(response[:ErrorCode]).to eq(0)
+  end
+
   it 'should be set account portrait successfully' do
     response = TimSdk::Api.invoke_portrait_set('foo', [
         { tag: 'Tag_Profile_IM_Nick', value: 'vincent', },

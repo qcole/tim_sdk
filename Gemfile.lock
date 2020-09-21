@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    tim_sdk (0.1.2)
+    tim_sdk (0.1.4)
 
 GEM
   remote: https://rubygems.org/

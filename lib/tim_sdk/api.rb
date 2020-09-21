@@ -92,6 +92,22 @@ module TimSdk
       JSON.parse(response.body, symbolize_names: true) if response.success?
     end
 
+    # 导入单聊消息
+    def self.invoke_import_msg(from_account, to_account, msg_random, msg_timestamp, sync_from_old_system, msg_body)
+      response = connection.post('/v4/openim/importmsg') do |request|
+        request.body = {
+            :SyncFromOldSystem => sync_from_old_system,
+            :From_Account      => from_account.to_s,
+            :To_Account        => to_account.to_s,
+            :MsgRandom         => msg_random.to_i,
+            :MsgTimeStamp      => msg_timestamp.to_i,
+            :MsgBody           => msg_body
+        }.to_json
+      end
+      raise TimServerError, "Response Status: #{response.status}" unless response.success?
+      JSON.parse(response.body, symbolize_names: true) if response.success?
+    end
+
     # 设置资料
     def self.invoke_portrait_set(account, items)
       response = connection.post('/v4/profile/portrait_set') do |request|

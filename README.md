@@ -13,6 +13,9 @@
     - [x] 失效帐号登录态
     - [x] 查询帐号在线状态
 
+- [x] 单聊消息
+    - [x] 导入单聊消息
+
 - [x] 资料管理
     - [x] 设置资料
     - [x] 拉取资料
@@ -91,6 +94,26 @@ TimSdk::Api.invoke_kick('foo')
 ```ruby
 TimSdk::Api.invoke_query_state(%w[foo bar])
 #=> {:ActionStatus=>"OK", :ErrorInfo=>"", :ErrorCode=>0, :QueryResult=>[{:To_Account=>"bar", :State=>"Offline", :Status=>"Offline"}, {:To_Account=>"foo", :State=>"Offline", :Status=>"Offline"}]}
+```
+
+导入聊天消息
+```ruby
+TimSdk::Api.invoke_import_msg(
+    'foo',
+    'bar',
+    4122534,
+    1556178721,
+    2,
+    [
+        {
+            "msg_type":    "TIMTextElem",
+            "msg_content": {
+                "text": "Hello World"
+            }
+        }
+    ]
+)
+#=> {:ActionStatus=>"OK", :ErrorInfo=>"", :ErrorCode=>0}
 ```
 
 设置资料
