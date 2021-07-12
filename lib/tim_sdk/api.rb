@@ -200,10 +200,10 @@ module TimSdk
 
 
     # 导入群成员
-    def self.invoke_import_group_member( group_id, member_list)
+    def self.invoke_import_group_member(group_id, member_list)
       response = connection.post('/v4/group_open_http_svc/import_group_member') do |request|
         request.body = {
-          "GroupId": owner_account,
+          "GroupId": group_id,
           "MemberList": member_list
         }.to_json
       end
