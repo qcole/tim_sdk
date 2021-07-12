@@ -169,7 +169,7 @@ TimSdk::Api.invoke_import_group(owner_account, type='Private', { name: 'group_na
 
 导入群成员
 ```ruby
-TimSdk::Api.invoke_import_group_member( group_id, member_list)
+TimSdk::Api.invoke_import_group_member(group_id, member_list)
 #=> 
 ```
 
