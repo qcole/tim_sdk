@@ -189,10 +189,10 @@ module TimSdk
         request.body = {
           "Owner_Account": owner_account,
           "Type": type, 
-          "GroupId": items['group_id'], 
-          "Name": items['name'], 
-          "company_id": items['company_id'],
-          "FaceUrl": items['face_url']
+          "GroupId": items[:group_id], 
+          "Name": items[:name], 
+          "company_id": items[:company_id],
+          "FaceUrl": items[:face_url]
         }.to_json
       end
       raise TimServerError, "Response Status: #{response.status}" unless response.success?
