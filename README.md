@@ -163,7 +163,7 @@ TimSdk::Api.invoke_fetch_ip_list
 
 导入群资料
 ```ruby
-TimSdk::Api.invoke_import_group(owner_account, type='Private', name, group_id)
+TimSdk::Api.invoke_import_group(owner_account, type='Private', { name: 'group_name', face_url: 'face_url', company_id: 'company_id', group_id: 'im_group_id' })
 #=> 
 ```
 
