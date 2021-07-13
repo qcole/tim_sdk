@@ -182,7 +182,6 @@ module TimSdk
       JSON.parse(response.body, symbolize_names: true) if response.success?
     end
 
-
     # 导入群组资料
     def self.invoke_import_group(owner_account, type='Private', items)
       response = connection.post('/v4/group_open_http_svc/import_group') do |request|
@@ -193,6 +192,27 @@ module TimSdk
           "Name": items[:name], 
           "company_id": items[:company_id],
           "FaceUrl": items[:face_url]
+        }.to_json
+      end
+      raise TimServerError, "Response Status: #{response.status}" unless response.success?
+      JSON.parse(response.body, symbolize_names: true) if response.success?
+    end
+
+    # 导入群文本消息
+    def self.invoke_import_group_msg(group_id, from_account, content)
+      response = connection.post('/v4/group_open_http_svc/import_group_msg') do |request|
+        request.body = {
+          "GroupId": group_id,
+          "MsgList": [{
+            "From_Account": from_account, 
+            "SendTime": Time.now.to_i,
+            "MsgBody": [{
+              "MsgType": "TIMTextElem",
+              "MsgContent": {
+                "Text": content
+              }
+            }]
+          }]
         }.to_json
       end
       raise TimServerError, "Response Status: #{response.status}" unless response.success?

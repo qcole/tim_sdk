@@ -167,6 +167,11 @@ TimSdk::Api.invoke_import_group(owner_account, type='Private', { name: 'group_na
 #=> 
 ```
 
+导入群文本消息
+```ruby
+TimSdk::Api.invoke_import_group(group_id, owner_account, text_content)
+```
+
 导入群成员
 ```ruby
 TimSdk::Api.invoke_import_group_member(group_id, member_list)
