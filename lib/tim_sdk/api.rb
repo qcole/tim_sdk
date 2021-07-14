@@ -231,5 +231,42 @@ module TimSdk
       JSON.parse(response.body, symbolize_names: true) if response.success?
     end
 
+    # 添加群成员
+    def self.add_group_member(group_id, member_list, silence = 0)
+      response = connection.post('/v4/group_open_http_svc/add_group_member') do |request|
+        request.body = {
+          "GroupId": group_id,
+          "MemberList": member_list,
+          "Silennce": silence
+        }.to_json
+      end
+      raise TimServerError, "Response Status: #{response.status}" unless response.success?
+      JSON.parse(response.body, symbolize_names: true) if response.success?
+    end
+
+    # 删除群成员
+    def self.delete_group_member(group_id, member_to_del_account, silence = 0)
+      response = connection.post('/v4/group_open_http_svc/delete_group_member') do |request|
+        request.body = {
+          "GroupId": group_id,
+          "MemberToDel_Account": member_to_del_account,
+          "Silennce": silence
+        }.to_json
+      end
+      raise TimServerError, "Response Status: #{response.status}" unless response.success?
+      JSON.parse(response.body, symbolize_names: true) if response.success?
+    end
+
+    # 解散群组
+    def self.destroy_group(group_id)
+      response = connection.post('/v4/group_open_http_svc/destroy_group') do |request|
+        request.body = {
+          "GroupId": group_id
+        }.to_json
+      end
+      raise TimServerError, "Response Status: #{response.status}" unless response.success?
+      JSON.parse(response.body, symbolize_names: true) if response.success?
+    end
+
   end
 end

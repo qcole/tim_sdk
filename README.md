@@ -175,6 +175,22 @@ TimSdk::Api.invoke_import_group(group_id, owner_account, text_content)
 导入群成员
 ```ruby
 TimSdk::Api.invoke_import_group_member(group_id, member_list)
+```
+
+添加群成员
+```ruby
+TimSdk::Api.add_group_member(group_id, [{"Member_Account": "tommy"}], silence = 0)
+```
+
+删除群成员
+```ruby
+TimSdk::Api.delete_group_member(group_id, ['member_toke', 'adfadfa'], silence = 0)
+#=> 
+```
+
+删除群组
+```ruby
+TimSdk::Api.destroy_group(group_id)
 #=> 
 ```
 
