@@ -231,6 +231,15 @@ module TimSdk
       JSON.parse(response.body, symbolize_names: true) if response.success?
     end
 
+    # 修改群基础资料
+    def self.modify_group_base_info(group_id, items)
+      response = connection.post('/v4/group_open_http_svc/modify_group_base_info') do |request|
+        request.body = items.to_json
+      end
+      raise TimServerError, "Response Status: #{response.status}" unless response.success?
+      JSON.parse(response.body, symbolize_names: true) if response.success?
+    end
+
     # 添加群成员
     def self.add_group_member(group_id, member_list, silence = 0)
       response = connection.post('/v4/group_open_http_svc/add_group_member') do |request|

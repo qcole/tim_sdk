@@ -177,6 +177,11 @@ TimSdk::Api.invoke_import_group(group_id, owner_account, text_content)
 TimSdk::Api.invoke_import_group_member(group_id, member_list)
 ```
 
+修改群基础资料
+```ruby
+TimSdk::Api.modify_group_base_info(im_group_id,  { "Name": title, "FaceUrl": avatar_url, company_id: company_id })
+```
+
 添加群成员
 ```ruby
 TimSdk::Api.add_group_member(group_id, [{"Member_Account": "tommy"}], silence = 0)
