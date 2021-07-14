@@ -234,7 +234,7 @@ module TimSdk
     # 修改群基础资料
     def self.modify_group_base_info(group_id, items)
       response = connection.post('/v4/group_open_http_svc/modify_group_base_info') do |request|
-        items["GroupID"] = group_id
+        items["GroupId"] = group_id
         request.body = items.to_json
       end
       raise TimServerError, "Response Status: #{response.status}" unless response.success?
