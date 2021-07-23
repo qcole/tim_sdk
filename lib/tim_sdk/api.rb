@@ -2,7 +2,7 @@ require 'faraday'
 
 module TimSdk
   class Api
-    include TimSdk::Api::Friendship
+    include Api::Friendship
 
     def self.connection
       Faraday.new('https://console.tim.qq.com', params: {
