@@ -175,7 +175,7 @@ TimSdk::Api.invoke_import_group(group_id, owner_account, text_content)
 导入群成员
 ```ruby
 TimSdk::Api.invoke_import_group_member(group_id, member_list)
-```
+**```**
 
 修改群基础资料
 ```ruby
@@ -196,6 +196,24 @@ TimSdk::Api.delete_group_member(group_id, ['member_toke', 'adfadfa'], silence = 
 删除群组
 ```ruby
 TimSdk::Api.destroy_group(group_id)
+#=> 
+```
+
+添加好友
+```ruby
+TimSdk::Api.invoke_friend_add(from_account, ['to_account', 'to_account'])
+#=> 
+```
+
+导入好友
+```ruby
+TimSdk::Api.invoke_friend_import(from_account, ['to_account', 'to_account'])
+#=> 
+```
+
+导入好友
+```ruby
+TimSdk::Api.invoke_friend_get(from_account, start_index = 0, standard_sequence = 0, custom_sequence = 0)
 #=> 
 ```
 
