@@ -1,5 +1,5 @@
 module TimSdk
-  module Api
+  class Api
     module Friendship
 
       # 添加好友
