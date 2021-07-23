@@ -2,6 +2,7 @@ require 'faraday'
 
 module TimSdk
   class Api
+    include TimSdk::Api::Friendship
 
     def self.connection
       Faraday.new('https://console.tim.qq.com', params: {
@@ -277,6 +278,5 @@ module TimSdk
       raise TimServerError, "Response Status: #{response.status}" unless response.success?
       JSON.parse(response.body, symbolize_names: true) if response.success?
     end
-
   end
 end
