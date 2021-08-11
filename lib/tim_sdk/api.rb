@@ -315,5 +315,28 @@ module TimSdk
       raise TimServerError, "Response Status: #{response.status}" unless response.success?
       JSON.parse(response.body, symbolize_names: true) if response.success?
     end
+
+    # 删除好友
+    def self.invoke_friend_delete(from_account, to_accounts, delete_type = "Delete_Type_Single")
+      response = connection.post('/v4/sns/friend_delete') do |request|
+        request.body = { 
+          :From_Account => from_account,
+          :To_Account => to_accounts,
+          :DeleteType => delete_type
+        }.to_json
+      end
+    end
+
+    # 删除全部好友
+    def self.invoke_friend_delete_all(from_account, delete_type = 'Delete_Type_Both')
+      response = connection.post('/v4/sns/friend_delete_all') do |request|
+        request.body = { 
+          :From_Account => from_account,
+          :DeleteType => delete_type
+        }.to_json
+      end
+      raise TimServerError, "Response Status: #{response.status}" unless response.success?
+      JSON.parse(response.body, symbolize_names: true) if response.success?
+    end
   end
 end
