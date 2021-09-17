@@ -182,6 +182,29 @@ module TimSdk
       JSON.parse(response.body, symbolize_names: true) if response.success?
     end
 
+    # 获取群详细资料
+    def self.invoke_get_group_info(group_ids)
+      response = connection.post('/v4/group_open_http_svc/get_group_info') do |request|
+        request.body = {
+          "GroupIdList": group_ids,
+          "ResponseFilter": {
+            "GroupBaseInfoFilter": [ 
+              "Type",
+              "Name",
+              "Introduction",
+              "Notification"
+            ],
+            "MemberInfoFilter": [ 
+                "Account", 
+                "Role"
+            ]
+          }
+        }
+      end
+      raise TimServerError, "Response Status: #{response.status}" unless response.success?
+      JSON.parse(response.body, symbolize_names: true) if response.success?
+    end
+
     # 导入群组资料
     def self.invoke_import_group(owner_account, type='Private', items)
       response = connection.post('/v4/group_open_http_svc/import_group') do |request|
