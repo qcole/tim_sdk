@@ -199,7 +199,7 @@ module TimSdk
                 "Role"
             ]
           }
-        }
+        }.to_json
       end
       raise TimServerError, "Response Status: #{response.status}" unless response.success?
       JSON.parse(response.body, symbolize_names: true) if response.success?
