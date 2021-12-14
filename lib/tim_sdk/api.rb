@@ -325,6 +325,18 @@ module TimSdk
       JSON.parse(response.body, symbolize_names: true) if response.success?
     end
 
+    # 更新好友
+    def self.invoke_friend_update(from_account, update_items)
+      response = connection.post('/v4/sns/friend_update') do |request|
+        request.body = { 
+          :From_Account => from_account,
+          :UpdateItem => update_items
+        }.to_json
+      end
+      raise TimServerError, "Response Status: #{response.status}" unless response.success?
+      JSON.parse(response.body, symbolize_names: true) if response.success?
+    end
+
     # 拉取好友
     def self.invoke_friend_get(from_account, start_index = 0, standard_sequence = 0, custom_sequence = 0)
       response = connection.post('/v4/sns/friend_get') do |request|
