@@ -373,5 +373,26 @@ module TimSdk
       raise TimServerError, "Response Status: #{response.status}" unless response.success?
       JSON.parse(response.body, symbolize_names: true) if response.success?
     end
+
+    ## 全员推送
+    def self.all_member_push(text = "")
+      response = connection.post('/v4/all_member_push/im_push') do |request|
+        request.body = { 
+          "From_Account": "admin",
+          "MsgRandom": 56512,
+          "MsgLifeTime": 120,
+          "MsgBody": [
+              {
+                  "MsgType": "TIMTextElem",
+                  "MsgContent": {
+                      "Text": text
+                  }
+              }
+          ]
+        }.to_json
+      end
+      raise TimServerError, "Response Status: #{response.status}" unless response.success?
+      JSON.parse(response.body, symbolize_names: true) if response.success?
+    end
   end
 end
