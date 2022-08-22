@@ -182,6 +182,20 @@ module TimSdk
       JSON.parse(response.body, symbolize_names: true) if response.success?
     end
 
+    # 创建群组
+    def self.create_group(owner_account, name, type, member_list)
+      response = connection.post('/v4/group_open_http_svc/create_group') do |request|
+        request.body = {
+          "Owner_Account": owner_account,
+          "Type": type, 
+          "Name": name, 
+          "MemberList": member_list
+        }.to_json
+      end
+      raise TimServerError, "Response Status: #{response.status}" unless response.success?
+      JSON.parse(response.body, symbolize_names: true) if response.success?
+    end
+
     # 获取群详细资料
     def self.invoke_get_group_info(group_ids)
       response = connection.post('/v4/group_open_http_svc/get_group_info') do |request|
