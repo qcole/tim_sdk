@@ -315,6 +315,27 @@ module TimSdk
       JSON.parse(response.body, symbolize_names: true) if response.success?
     end
 
+    # 发送群聊消息
+    def self.send_group_msg(group_id, from_account, message)
+      response = connection.post('/v4/group_open_http_svc/send_group_msg') do |request|
+        request.body = { 
+          :GroupId => group_id,
+          :From_Account => from_account,
+          :Content => message,
+          :MsgBody => [
+            {
+              "MsgType": "TIMTextElem", 
+              "MsgContent": {
+                  "Text": message
+              }
+          },
+          ]
+        }.to_json
+      end
+      raise TimServerError, "Response Status: #{response.status}" unless response.success?
+      JSON.parse(response.body, symbolize_names: true) if response.success?
+    end
+
     # 发送群聊系统消息
     def self.send_group_system_notification(group_id, message)
       response = connection.post('/v4/group_open_http_svc/send_group_system_notification') do |request|
@@ -326,7 +347,7 @@ module TimSdk
       raise TimServerError, "Response Status: #{response.status}" unless response.success?
       JSON.parse(response.body, symbolize_names: true) if response.success?
     end
-
+    
     # 添加好友
     def self.invoke_friend_add(from_account, friend_list)
       response = connection.post('/v4/sns/friend_add') do |request|
