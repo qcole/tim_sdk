@@ -322,7 +322,7 @@ module TimSdk
           "SyncOtherMachine": 2, # 消息不同步至发送方
           "To_Account": to_account,
           "MsgLifeTime": 604800,     # 消息保存7天
-          "MsgRandom": msg_random,
+          "MsgRandom": rand(4294967295),
           "MsgBody": [
             {
               "MsgType": "TIMTextElem",
