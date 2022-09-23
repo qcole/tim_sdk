@@ -316,7 +316,7 @@ module TimSdk
     end
 
     # 发送单聊消息
-    def sendmsg(to_account, message)
+    def self.sendmsg(to_account, message)
       response = connection.post('/v4/openim/sendmsg') do |request|
         request.body = { 
           "SyncOtherMachine": 2, # 消息不同步至发送方
