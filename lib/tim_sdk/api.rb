@@ -315,6 +315,28 @@ module TimSdk
       JSON.parse(response.body, symbolize_names: true) if response.success?
     end
 
+    # 发送单聊消息
+    def sendmsg(to_account, message)
+      response = connection.post('/v4/openim/sendmsg') do |request|
+        request.body = { 
+          "SyncOtherMachine": 2, # 消息不同步至发送方
+          "To_Account": to_account,
+          "MsgLifeTime": 604800,     # 消息保存7天
+          "MsgRandom": msg_random,
+          "MsgBody": [
+            {
+              "MsgType": "TIMTextElem",
+              "MsgContent": {
+                "Text": message
+              }
+            }
+          ],
+        }.to_json
+      end
+      raise TimServerError, "Response Status: #{response.status}" unless response.success?
+      JSON.parse(response.body, symbolize_names: true) if response.success?
+    end 
+
     # 发送群聊消息
     def self.send_group_msg(group_id, from_account, message)
       response = connection.post('/v4/group_open_http_svc/send_group_msg') do |request|
@@ -426,7 +448,7 @@ module TimSdk
       response = connection.post('/v4/all_member_push/im_push') do |request|
         request.body = { 
           "From_Account": "admin",
-          "MsgRandom": 56512,
+          "MsgRandom": msg_random,
           "MsgLifeTime": 120,
           "MsgBody": [
               {
@@ -441,5 +463,7 @@ module TimSdk
       raise TimServerError, "Response Status: #{response.status}" unless response.success?
       JSON.parse(response.body, symbolize_names: true) if response.success?
     end
+
+    
   end
 end
