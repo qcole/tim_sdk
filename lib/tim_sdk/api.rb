@@ -319,7 +319,7 @@ module TimSdk
     def self.sendmsg(to_account, message)
       response = connection.post('/v4/openim/sendmsg') do |request|
         request.body = { 
-          "SyncOtherMachine": 2, # 消息不同步至发送方
+          "SyncOtherMachine": 1, # 消息同步至发送方
           "To_Account": to_account,
           "MsgLifeTime": 604800,     # 消息保存7天
           "MsgRandom": rand(4294967295),
